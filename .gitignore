@@ -10,4 +10,4 @@ package-lock.json
 utils/blankCommand.js
 
 # Unignored Files
-!/.data/files/trivias
+!/.data/files/trivias/*.txt
