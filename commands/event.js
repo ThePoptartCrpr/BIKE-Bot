@@ -21,9 +21,9 @@ exports.run = (client, message, params, perms) => {
     if (perms < 2) return message.channel.send("You don't have permission to stop events.");
     stopEvent(message);
   } else if (params[0] === "scores") {
-    currPersistence = JSON.parse(fs.readFileSync("./files/event_persistence.json"));
+    currPersistence = JSON.parse(fs.readFileSync("./.data/files/event_persistence.json"));
     if (currPersistence.active === false) return message.channel.send(`No event is currently in progress.`);
-    eventScores = JSON.parse(fs.readFileSync("./files/trivia_event_stats.json"));
+    eventScores = JSON.parse(fs.readFileSync("./.data/files/trivia_event_stats.json"));
     
     var scorearr = Object.keys(eventScores).sort(function(a,b){return eventScores[a]-eventScores[b]});
     var scorestr = "";
@@ -51,11 +51,11 @@ exports.run = (client, message, params, perms) => {
   }
   
   function startEvent(event, message) {
-    let currPersistence = JSON.parse(fs.readFileSync("./files/event_persistence.json"));
+    let currPersistence = JSON.parse(fs.readFileSync("./.data/files/event_persistence.json"));
     if (currPersistence.active === true) return message.channel.send(`A ${currPersistence.type} event is already in progress.`);
     eventPersistence.active = true;
     eventPersistence.type = "trivia";
-    fs.writeFile("./files/event_persistence.json", JSON.stringify(eventPersistence), (err) => {
+    fs.writeFile("./.data/files/event_persistence.json", JSON.stringify(eventPersistence), (err) => {
       if (err) console.error(err);
     });
     // message.channel.send(`A ${event} event has been started.`);
@@ -69,12 +69,12 @@ exports.run = (client, message, params, perms) => {
   }
   
   function stopEvent(message) {
-    currPersistence = JSON.parse(fs.readFileSync("./files/event_persistence.json"));
+    currPersistence = JSON.parse(fs.readFileSync("./.data/files/event_persistence.json"));
     if (currPersistence.active === false) return message.channel.send(`No event is currently in progress.`);
     eventPersistence.active = false;
     eventPersistence.type = "inactive";
     
-    eventScores = JSON.parse(fs.readFileSync("./files/trivia_event_stats.json"));
+    eventScores = JSON.parse(fs.readFileSync("./.data/files/trivia_event_stats.json"));
     
     var scorearr = Object.keys(eventScores).sort(function(a,b){return eventScores[a]-eventScores[b]});
     var scorestr = "";
@@ -98,10 +98,10 @@ exports.run = (client, message, params, perms) => {
         .setFooter("BIKE Alliance", client.user.avatarURL())
     })
     
-    fs.writeFile("./files/event_persistence.json", JSON.stringify(eventPersistence), (err) => {
+    fs.writeFile("./.data/files/event_persistence.json", JSON.stringify(eventPersistence), (err) => {
       if (err) console.error(err);
     });
-    fs.writeFile("./files/trivia_event_stats.json", JSON.stringify(blankScores), (err) => {
+    fs.writeFile("./.data/files/trivia_event_stats.json", JSON.stringify(blankScores), (err) => {
       if (err) console.error(err);
     });
   }

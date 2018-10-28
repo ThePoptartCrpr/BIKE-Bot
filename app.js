@@ -22,21 +22,21 @@ client.blankCooldowns = {
   slots: moment().subtract(4, 'hours').toString()
 }
 
-client.prevDailies = new Enmap({provider: new EnmapLevel({name: "prevDailies"})});
-client.balance = new Enmap({provider: new EnmapLevel({name: "balance"})});
-client.reminders = new Enmap({provider: new EnmapLevel({name: "reminders"})});
-client.cases = new Enmap({provider: new EnmapLevel({name: "cases"})});
-client.points = new Enmap({provider: new EnmapLevel({name: "points"})});
-client.reputation = new Enmap({provider: new EnmapLevel({name: "reputation"})});
-client.prevReps = new Enmap({provider: new EnmapLevel({name: "prevReps"})});
-client.streaks = new Enmap({provider: new EnmapLevel({name: "streaks"})});
+client.prevDailies = new Enmap({provider: new EnmapLevel({name: "prevDailies", dataDir: "./.data"})});
+client.balance = new Enmap({provider: new EnmapLevel({name: "balance", dataDir: "./.data"})});
+client.reminders = new Enmap({provider: new EnmapLevel({name: "reminders", dataDir: "./.data"})});
+client.cases = new Enmap({provider: new EnmapLevel({name: "cases", dataDir: "./.data"})});
+client.points = new Enmap({provider: new EnmapLevel({name: "points", dataDir: "./.data"})});
+client.reputation = new Enmap({provider: new EnmapLevel({name: "reputation", dataDir: "./.data"})});
+client.prevReps = new Enmap({provider: new EnmapLevel({name: "prevReps", dataDir: "./.data"})});
+client.streaks = new Enmap({provider: new EnmapLevel({name: "streaks", dataDir: "./.data"})});
 
-client.cooldowns = new Enmap({provider: new EnmapLevel({name: "cooldowns"})});
+client.cooldowns = new Enmap({provider: new EnmapLevel({name: "cooldowns", dataDir: "./.data"})});
 
-client.userStats = new Enmap({provider: new EnmapLevel({name: "userStats"})});
+client.userStats = new Enmap({provider: new EnmapLevel({name: "userStats", dataDir: "./.data"})});
 
-client.currPoll = new Enmap({provider: new EnmapLevel({name: "currPoll"})});
-client.restartMsg = new Enmap({provider: new EnmapLevel({name: "restartMsg"})});
+client.currPoll = new Enmap({provider: new EnmapLevel({name: "currPoll", dataDir: "./.data"})});
+client.restartMsg = new Enmap({provider: new EnmapLevel({name: "restartMsg", dataDir: "./.data"})});
 
 client.log = message => {
   console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message}`);

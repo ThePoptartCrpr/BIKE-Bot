@@ -1,5 +1,5 @@
 var fs = require("fs");
-var filepath = "./files/trivias/";
+var filepath = "./.data/files/trivias/";
 var anyoneStart = false;
 var anyoneStop = false;
 var anyoneAnswer = false;
