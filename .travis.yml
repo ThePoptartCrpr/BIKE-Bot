@@ -4,4 +4,4 @@ node_js:
 install:
   - npm install glitch-deploy
 script:
-  - npx glitch-deploy
+  - DEBUG=glitch-deploy* npx glitch-deploy
