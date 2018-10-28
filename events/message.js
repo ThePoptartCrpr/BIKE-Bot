@@ -1,4 +1,3 @@
-const config = require('../config.json');
 const moment = require('moment');
 
 module.exports = message => {
@@ -14,7 +13,7 @@ module.exports = message => {
   }
   
   function updatePoints(message) {
-    if (message.content.startsWith(config.prefix)) return;
+    if (message.content.startsWith(client.prefix)) return;
     
     let momentObj = moment().subtract(10, 'minutes');;
     

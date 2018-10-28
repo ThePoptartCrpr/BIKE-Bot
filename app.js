@@ -8,7 +8,6 @@ const moment = require('moment');
 const client = new Discord.Client();
 
 // File dependencies
-const config = require('./config.json');
 require('./utils/eventLoader')(client);
 
 // Client settings
