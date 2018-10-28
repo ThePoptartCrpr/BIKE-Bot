@@ -1,0 +1,14 @@
+# Folders
+/data
+/.data
+/files
+/node_modules
+
+# Files
+*.env
+config.json
+package-lock.json
+utils/blankCommand.js
+
+# Unignored Files
+
