@@ -1,3 +1,7 @@
 language: node_js
+node_js:
+  - "8"
+install:
+  - npm install glitch-deploy
 script:
-  npx glitch-deploy
+  - npx glitch-deploy
