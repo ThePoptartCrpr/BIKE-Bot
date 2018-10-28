@@ -87,11 +87,11 @@ client.reload = command => {
 
 client.elevation = message => {
   let permlvl = 0;
-  let helper_role = message.guild.roles.find('name', "Helper");
+  let helper_role = message.guild.roles.find(role => role.name === "Helper");
   if (helper_role && message.member.roles.has(helper_role.id)) permlvl = 1;
-  let mod_role = message.guild.roles.find('name', "Moderator");
+  let mod_role = message.guild.roles.find(role => role.name === "Moderator");
   if (mod_role && message.member.roles.has(mod_role.id)) permlvl = 2;
-  let admin_role = message.guild.roles.find('name', "Admin");
+  let admin_role = message.guild.roles.find(role => role.name === "Admin");
   if (admin_role && message.member.roles.has(admin_role.id)) permlvl = 3;
   if (message.author.id == 198466968725094400) permlvl = 5;
   return permlvl;

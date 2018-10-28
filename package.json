@@ -15,7 +15,6 @@
     "enmap": "^0.4.2",
     "enmap-level": "github:eslachance/enmap-level",
     "ffmpeg-binaries": "^3.2.2-3",
-    "fs": "0.0.1-security",
     "glitch-deploy": "^1.1.6",
     "moment": "^2.20.1",
     "native-level-promise": "github:eslachance/native-level-promise",

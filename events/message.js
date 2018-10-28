@@ -9,7 +9,7 @@ module.exports = message => {
   if (message.guild.id != "271368793865977856" && message.guild.id != "269652484274913282" && message.guild.id != "429734306966011914" && message.guild.id != "452884059459158036") return;
 
   if (message.mentions.everyone && message.author.id === "198466968725094400") {
-    message.react(client.emojis.find("name", "pingsock"));
+    message.react(client.emojis.find(emoji => emoji.name === "pingsock"));
   }
   
   function updatePoints(message) {

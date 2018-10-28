@@ -18,7 +18,7 @@ exports.run = (client, message, params, perms) => {
   
   let member = message.mentions.members.first();
   
-  let smp_role = message.guild.roles.find("name", "SMP");
+  let smp_role = message.guild.roles.find(role => role.name === "SMP");
   
   member.roles.add(smp_role.id);
   

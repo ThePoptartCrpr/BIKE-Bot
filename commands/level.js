@@ -74,7 +74,7 @@ exports.run = (client, message, params, perms) => {
       },
       {
         name: "Balance",
-        value: `${client.emojis.find("name", "bikecoin")}${balance.toLocaleString()}`
+        value: `${client.emojis.find(emoji => emoji.name === "bikecoin")}${balance.toLocaleString()}`
       },
       {
         name: "Stats",

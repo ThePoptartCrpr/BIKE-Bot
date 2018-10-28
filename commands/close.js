@@ -5,7 +5,7 @@ let triviaChannelId = "498201991026180098";
 exports.run = (client, message, params, perms) => {
   if (params[0] === "trivia") {
     if (perms < 2) return message.channel.send("You do not have permission to close event channels.");
-    let everyoneRole = message.guild.roles.find("name", "@everyone");
+    let everyoneRole = message.guild.roles.find(role => role.name === "@everyone");
     let triviaChannel = client.channels.filter(c => c.type === "text").get(triviaChannelId);
     if (triviaChannel.permissionsFor(everyoneRole).serialize().VIEW_CHANNEL === false) return message.channel.send("Trivia channel already closed.");
     

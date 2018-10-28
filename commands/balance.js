@@ -10,9 +10,9 @@ exports.run = (client, message, params, perms) => {
   if (user === message.author) str = "Your";
   
   if (!client.balance.get(user.id) || client.balance.get(user.id) == undefined) {
-    message.channel.send(`${str} current balance is ${client.emojis.find("name", "bikecoin")}0 BikeCoin.`);
+    message.channel.send(`${str} current balance is ${client.emojis.find(emoji => emoji.name === "bikecoin")}0 BikeCoin.`);
   } else {
-    message.channel.send(`${str} current balance is ${client.emojis.find("name", "bikecoin")}${client.balance.get(user.id).bal.toLocaleString()} BikeCoin.`);
+    message.channel.send(`${str} current balance is ${client.emojis.find(emoji => emoji.name === "bikecoin")}${client.balance.get(user.id).bal.toLocaleString()} BikeCoin.`);
   }
 };
 

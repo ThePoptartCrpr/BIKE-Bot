@@ -23,12 +23,12 @@ exports.run = (client, message, params, perms) => {
       .setFooter("BIKE Alliance", client.user.avatarURL())
   });
   
-  let hk_role = message.guild.roles.find("name", "Hypixel Knights");
+  let hk_role = message.guild.roles.find(role => role.name === "Hypixel Knights");
   // let divana_role = message.guild.roles.find("name", "Divana");
-  let emplify_role = message.guild.roles.find("name", "Emplify");
-  let infamy_role = message.guild.roles.find("name", "Infamy");
-  let guest_role = message.guild.roles.find("name", "Guest");
-  let awaiting_role = message.guild.roles.find("name", "Awaiting Roles");
+  let emplify_role = message.guild.roles.find(role => role.name === "Emplify");
+  let infamy_role = message.guild.roles.find(role => role.name === "Infamy");
+  let guest_role = message.guild.roles.find(role => role.name === "Guest");
+  let awaiting_role = message.guild.roles.find(role => role.name === "Awaiting Roles");
   
   let guild_role;
   let color;

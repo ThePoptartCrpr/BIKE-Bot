@@ -76,7 +76,7 @@ exports.run = (client, message, params, perms) => {
     if (streakAdd != 0) description += `\n\nYou completed a streak of 5 and got an additional bonus of ${streakAdd} BikeCoin!`;
     message.channel.send({
       embed: new client.Discord.MessageEmbed()
-        .setTitle(`You've claimed your daily ${client.emojis.find("name", "bikecoin")}${toAdd} BikeCoin. Check back in 24 hours!`)
+        .setTitle(`You've claimed your daily ${client.emojis.find(emoji => emoji.name === "bikecoin")}${toAdd} BikeCoin. Check back in 24 hours!`)
         .setDescription(description)
         .setColor(client.EmbedHelper.colors.gold)
         .setTimestamp()
