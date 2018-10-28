@@ -71,8 +71,8 @@ module.exports = message => {
     }
   }*/
 
-  if (!message.content.startsWith(config.prefix)) return;
-  let command = message.content.split(' ')[0].slice(config.prefix.length).toLowerCase();
+  if (!message.content.startsWith(client.prefix)) return;
+  let command = message.content.split(' ')[0].slice(client.prefix.length).toLowerCase();
   let params = message.content.split(' ').slice(1);
 
   let perms = client.elevation(message);
