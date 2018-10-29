@@ -7,11 +7,22 @@ const moment = require('moment');
 
 const client = new Discord.Client();
 
+const express = require('express');
+const app = express();
+
 // File dependencies
 require('./utils/eventLoader')(client);
 
 // Client settings
 client.prefix = process.env.PREFIX;
+
+// Express magic
+app.get("/", (request, response) => {
+  console.log(Date.now() + " Ping Received");
+  response.sendStatus(200);
+});
+
+app.listen(process.env.PORT);
 
 // Enmap
 const Enmap = require('enmap');
