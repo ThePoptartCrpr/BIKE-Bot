@@ -21,8 +21,8 @@ let dispatcher;
 
 const connectToVoiceChannel = function(message) {
   return new Promise((resolve, reject) => {
-    const voiceChannel = message.member.voiceChannel;
-    if (!voiceChannel || voiceChannel.type !== 'voice') return message.client.musicjoin[message.guild.id] = "false";
+    const voiceChannel = message.member.voice.channel;
+    if (!voiceChannel || voiceChannel.type !== 'voice') return /*message.client.musicjoin[message.guild.id] = "false"*/;
     channel = voiceChannel;
     voiceChannel.join().then(connection => {
       resolve(connection);
