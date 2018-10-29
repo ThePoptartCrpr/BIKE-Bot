@@ -9,6 +9,8 @@ exports.run = (client, message, params, perms) => {
   exec('pm2 restart all', (err, stdout, stderr) => {
     if (err) console.log(err);
   });
+  
+  // aaa please work
 };
 
 exports.conf = {
