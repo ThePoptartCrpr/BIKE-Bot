@@ -6,7 +6,7 @@ exports.run = (client, message, params, perms) => {
   .then(msg => {
     client.restartMsg.set("msg", {channel: msg.channel.id, message: msg.id});
   })
-  exec('pm2 restart all', (err, stdout, stderr) => {
+  exec('refresh', (err, stdout, stderr) => {
     if (err) console.log(err);
   });
 };
