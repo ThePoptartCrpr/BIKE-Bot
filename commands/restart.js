@@ -6,9 +6,11 @@ exports.run = (client, message, params, perms) => {
   .then(msg => {
     client.restartMsg.set("msg", {channel: msg.channel.id, message: msg.id});
   })
-  exec('refresh', (err, stdout, stderr) => {
+  /*exec('refresh', (err, stdout, stderr) => {
     if (err) console.log(err);
-  });
+  });*/
+  
+  process.exit();
 };
 
 exports.conf = {
