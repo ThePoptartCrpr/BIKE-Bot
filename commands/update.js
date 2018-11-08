@@ -31,11 +31,6 @@ exports.run = (client, message, params, perms) => {
       });
     });
   });
-
-  // aaa please work
-  // E
-  // ....
-  // swear if this doesn't work
 };
 
 exports.conf = {
