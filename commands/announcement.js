@@ -1,13 +1,13 @@
 const Discord = require('discord.js');
 
 exports.run = (client, message, params, perms) => {
-  
+
   const colors = client.EmbedHelper.colors;
-  
+
   if (!client.announcement) client.announcement = {
-    
+
   }
-  
+
   if (perms < 1) {
     let nick = message.member.nickname || message.author.username;
     return message.channel.send({
@@ -16,10 +16,9 @@ exports.run = (client, message, params, perms) => {
         .setColor(colors.red)
         .setTimestamp()
         .setFooter("BIKE Alliance", client.user.avatarURL())
-        .getEmbed()
     });
   }
-  
+
   if (!params[0]) {
     if (Object.equals(client.announcement, {})) return message.channel.send({embed: new Discord.MessageEmbed()
       .setTitle("No announcement is currently in progress!")
@@ -164,7 +163,7 @@ exports.run = (client, message, params, perms) => {
     let fields = params.slice(1);
     fields = fields.join(" ");
     fields = fields.split("|");
-    
+
     if ((!fields[1]) || (fields[2])) return message.channel.send({
       embed: new Discord.MessageEmbed()
         .setTitle("Usage: +announcement field <field title|field content>")
@@ -172,19 +171,19 @@ exports.run = (client, message, params, perms) => {
         .setTimestamp()
         .setFooter("BIKE Alliance", client.user.avatarURL())
     })
-    
+
     fields[0] = fields[0].trim();
     fields[1] = fields[1].trim();
-    
+
     if (client.announcement.embed.fields == null) client.announcement.embed.fields = [];
-    
+
     embedFields = {
       name: fields[0],
       value: fields[1]
     };
-    
+
     client.announcement.embed.fields.push(embedFields);
-    
+
     message.channel.send({
       embed: new Discord.MessageEmbed()
         .setTitle("Successfully added announcement field.")
@@ -209,16 +208,16 @@ exports.run = (client, message, params, perms) => {
         .setTimestamp()
         .setFooter("BIKE Alliance", client.user.avatarURL())
     })
-    
+
     if (client.announcement.embed.fields == null) client.announcement.embed.fields = [];
-    
+
     embedFields = {
       name: '\u200B',
       value: '\u200B'
     };
-    
+
     client.announcement.embed.fields.push(embedFields);
-    
+
     message.channel.send({
       embed: new Discord.MessageEmbed()
         .setTitle("Successfully added blank announcement field.")
@@ -328,11 +327,11 @@ exports.run = (client, message, params, perms) => {
         .setTimestamp()
         .setFooter("BIKE Alliance", client.user.avatarURL())
     })
-    
+
     let channel = client.channels.filter(c => c.type === "text").get(client.announcement.embed.channel);
-    
+
     channel.send({embed: buildAnnouncement()})
-    
+
     message.channel.send({
       embed: new Discord.MessageEmbed()
         .setTitle(":ok_hand: | Successfully sent your announcement.")
@@ -341,10 +340,10 @@ exports.run = (client, message, params, perms) => {
         .setFooter("BIKE Alliance", client.user.avatarURL())
     })
     client.announcement = {
-      
+
     };
   }
-  
+
   buildAnnouncement = function() {
     let nick = message.member.nickname || message.author.username;
     let embed = new Discord.MessageEmbed()
@@ -352,17 +351,17 @@ exports.run = (client, message, params, perms) => {
       .setDescription(client.announcement.embed.description)
       .setTimestamp()
       .setFooter(nick, message.author.avatarURL())
-    
+
     if (client.announcement.embed.color != null) embed.setColor(client.announcement.embed.color);
     if (client.announcement.embed.fields != null) {
       for (let i = 0; i < client.announcement.embed.fields.length; i++) {
         embed.addField(client.announcement.embed.fields[i].name, client.announcement.embed.fields[i].value);
       }
     }
-    
+
     return embed;
   }
-  
+
 };
 
 exports.conf = {
