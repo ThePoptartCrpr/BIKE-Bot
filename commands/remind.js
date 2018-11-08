@@ -28,7 +28,7 @@ exports.run = (client, message, params, perms) => {
     // message.channel.send(`${str}`);
     message.channel.send({
       embed: new client.Discord.MessageEmbed()
-        .setTitle("Your current reminders")
+        .setTitle("Your current reminders:")
         .setDescription(str)
         .setColor(client.EmbedHelper.colors.lime)
         .setTimestamp()
@@ -81,7 +81,7 @@ exports.run = (client, message, params, perms) => {
     message.channel.send({
       embed: new client.Discord.MessageEmbed()
         .setTitle("Got it!")
-        .setDescription(`I'll remind you to ${reminder} in ${length} ${unit}.`)
+        .setDescription(`I'll remind you to **${reminder}** in ${length} ${unit}.`)
         .setColor(client.EmbedHelper.colors.lime)
         .setTimestamp()
         .setFooter("BIKE Alliance", client.user.avatarURL())
@@ -94,21 +94,21 @@ exports.run = (client, message, params, perms) => {
     } else if (unit === "second" || unit === "seconds") {
       momentStamp = momentStamp.add(length, 'seconds');
     }
-    
+
     /*let testMomentStamp = moment();
     let testDateStamp = testMomentStamp.toDate();
     let testDateStamp2 = Date.now();
-    
+
     console.log(testMomentStamp);
     console.log(testDateStamp);
     console.log(testDateStamp2);*/
-    
+
     client.reminders.set(`${momentStamp.toString()}`, {
       id: message.author.id,
       reminder: reminder,
       timestamp: momentStamp.toString()
     });
-    
+
   }
 };
 
