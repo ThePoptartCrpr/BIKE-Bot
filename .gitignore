@@ -9,6 +9,7 @@ config.json
 package-lock.json
 utils/blankCommand.js
 *.zip
+*.log
 
 # Unignored Files
 !/.data/files/trivias/
