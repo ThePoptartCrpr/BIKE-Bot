@@ -15,7 +15,6 @@ exports.run = (client, message, params, perms) => {
   })
   .then(msg => {
     editMsg = msg;
-    client.restartMsg.set("msg", {channel: msg.channel.id, message: msg.id});
   });
 
   exec('git fetch', (err, stdout, stderr) => {
