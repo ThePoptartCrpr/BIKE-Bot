@@ -18,11 +18,8 @@
     "ffmpeg-binaries": "^3.2.2-3",
     "glitch-deploy": "^1.1.6",
     "moment": "^2.20.1",
-    "native-level-promise": "github:eslachance/native-level-promise",
     "node-opus": "^0.2.7",
-    "opusscript": "0.0.6",
     "slot-machine": "^2.1.0",
-    "sqlite": "^2.9.1",
     "youtube-search": "^1.0.10",
     "ytdl-core": "^0.20.1"
   }
