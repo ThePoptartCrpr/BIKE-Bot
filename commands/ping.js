@@ -1,6 +1,19 @@
 exports.run = (client, message, guild, params) => {
-  message.channel.send('Ping?').then(msg => {
-    msg.edit(`Response time: \`${msg.createdTimestamp - message.createdTimestamp}ms\``);
+  message.channel.send({
+    embed: new client.Discord.MessageEmbed()
+      .setTitle("Ping?")
+      .setColor(client.EmbedHelper.colors.yellow)
+      .setTimestamp()
+      .setFooter("BIKE Alliance", client.user.avatarURL())
+  }).then(msg => {
+    msg.edit({
+      embed: new client.Discord.MessageEmbed()
+        .setTitle("Response time:")
+        .setDescription(`${msg.createdTimestamp - message.createdTimestamp}ms`)
+        .setColor(client.EmbedHelper.colors.lime)
+        .setTimestamp()
+        .setFooter("BIKE Alliance", client.user.avatarURL())
+    });
   });
 };
 
