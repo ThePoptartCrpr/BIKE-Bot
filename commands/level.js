@@ -50,6 +50,19 @@ exports.run = (client, message, params, perms) => {
 
   let pointsLeft = nextlevelpoints - points;
 
+  let getPercentBar = percent => {
+    let thick = Math.floor(percent / 10);
+    let thin = Math.ceil((100 - percent) / 10) * 3;
+    let str = "[";
+
+    for (let i = 0; i < thick; i++) str += "▬";
+    for (let i = 0; i < thin; i++) str += "-";
+
+    str += "]";
+
+    return str;
+  }
+
   /*message.channel.send({embed: {
     color: 3447003,
     author: {
@@ -89,7 +102,7 @@ exports.run = (client, message, params, perms) => {
       .setAuthor(user.username, user.avatarURL())
       .addField("Level", `${level}\n\u200B`, true)
       .addField("Total XP", points.toLocaleString(), true)
-      .addField("Progress", `XP required for level **${level + 1}**: ${nextlevelpoints.toLocaleString()}\n**Progress**: ${progressPoints.toLocaleString()}/${progressNextPoints.toLocaleString()} (${Math.round(progressPoints/progressNextPoints * 100)}%), ${pointsLeft.toLocaleString()} XP left`, true)
+      .addField("Progress", `XP required for level **${level + 1}**: ${nextlevelpoints.toLocaleString()}\n**Progress**: ${progressPoints.toLocaleString()}/${progressNextPoints.toLocaleString()} (${Math.round(progressPoints/progressNextPoints * 100)}%), ${pointsLeft.toLocaleString()} XP left\n\n${getPercentBar(Math.round(progressPoints/progressNextPoints * 100))}`, true)
       .addBlankField()
       .addField("Reputation", `**Received: ${rep.rep}**\n**Sent**: ${rep.sent}`)
       .addField("Balance", `${client.emojis.find(emoji => emoji.name === "bikecoin")}${balance.toLocaleString()}`, true)
