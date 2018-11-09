@@ -5,6 +5,13 @@ exports.run = (client, message, params, perms) => {
       .setColor(client.EmbedHelper.colors.red)
       .setTimestamp()
   })
+  if (!params[0]) return message.channel.send({
+    embed: new client.Discord.MessageEmbed()
+      .setTitle("Usage:")
+      .setDescription("+reload <command>")
+      .setColor(client.EmbedHelper.colors.red)
+      .setTimestamp()
+  })
   let command;
   if (client.commands.has(params[0])) {
     command = params[0];
