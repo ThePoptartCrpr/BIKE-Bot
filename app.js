@@ -50,6 +50,34 @@ client.restartMsg = new Enmap({provider: new EnmapLevel({name: "restartMsg", dat
 
 client.log = message => {
   console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message}`);
+  try {
+    client.channels.get('510248810086137878').send({
+      embed: new client.Discord.MessageEmbed()
+        .setTitle("Log")
+        .setDescription(message)
+        .setColor(client.EmbedHelper.colors.lime)
+        .setTimestamp()
+        .setFooter("BIKE Alliance", client.user.avatarURL())
+    })
+  } catch(e) {
+
+  }
+};
+
+client.error = error => {
+  console.error(error);
+  try {
+    client.channels.get('510248810086137878').send({
+      embed: new client.Discord.MessageEmbed()
+        .setTitle("Error")
+        .setDescription(error)
+        .setColor(client.EmbedHelper.colors.red)
+        .setTimestamp()
+        .setFooter("BIKE Alliance", client.user.avatarURL())
+    })
+  } catch(e) {
+
+  }
 };
 
 client.commands = new Discord.Collection();

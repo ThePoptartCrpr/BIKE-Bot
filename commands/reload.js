@@ -46,7 +46,7 @@ exports.run = (client, message, params, perms) => {
                 .setColor(client.EmbedHelper.colors.red)
                 .setTimestamp()
             })
-            console.error(e);
+            client.error(e);
           })
       })
   }
