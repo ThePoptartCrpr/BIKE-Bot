@@ -276,7 +276,11 @@ exports.run = (client, message, params, perms) => {
 
     lb.forEach(id => {
       let user = client.users.get(id);
-      let amount = db.get(id)[value] || 0;
+      try {
+        let amount = db.get(id)[value] || 0;
+      } catch(e) {
+        client.log(id);
+      }
       if (amount <= 0 && id != message.author.id) return;
       if (count <= page * perPage && count > (page - 1) * perPage && user != undefined) leaderboard += `**#${count}**: ${user} with **${amount.toLocaleString()} ${unit}**\n`;
       if (id == message.author.id) {
