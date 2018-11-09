@@ -5,32 +5,32 @@ const moment = require('moment');
 // exports.run = (client, message, params, perms) => {
 //   let type = params[0];
 //   if (!params[0] || !isNaN(params[0])) type = "xp";
-// 
+//
 //   let mySpot = "You are not on the leaderboard!";
 //   let myScore = "0";
-// 
+//
 //   let perPage = 20;
 //   let page = 1;
-// 
+//
 //   if (!isNaN(params[0]) && params[0].indexOf(".") == -1) page = params[0];
 //   else if (!isNaN(params[1]) && params[1].indexOf(".") == -1) page = params[1];
 //   if (page < 1) return message.channel.send("Page cannot be below 1!");
 //   // else message.channel.send(page);
-// 
+//
 //   if (type == "balance" || type == "bal" || type == "money" || type == "currency" || type == "coin" || type == "bikecoin" || type == "c" || type == "b") {
 //     let count = 1;
 //     let str = "";
 //     let user;
-// 
+//
 //     let top = client.balance;
 //     let lbTop = [];
-// 
+//
 //     top.map(b => ({bal: b.bal, id: b.id}))
 //       .sort((a, b) => b.bal > a.bal ? 1 : -1)
 //       .map(us => {
 //         lbTop.push(us.id);
 //       })
-// 
+//
 //     lbTop.forEach(balance => {
 //       user = client.users.get(balance);
 //       if (count <= page * perPage && count > (page - 1) * perPage) {
@@ -48,16 +48,16 @@ const moment = require('moment');
 //     let count = 1;
 //     let str = "";
 //     let user;
-// 
+//
 //     let top = client.points;
 //     let lbTop = [];
-// 
+//
 //     top.map(p => ({points: p.points, id: p.id}))
 //       .sort((a, b) => b.points > a.points ? 1 : -1)
 //       .map(us => {
 //         lbTop.push(us.id);
 //       })
-// 
+//
 //     lbTop.forEach(points => {
 //       user = client.users.get(points);
 //       if (count <= page * perPage && count > (page - 1) * perPage) {
@@ -76,16 +76,16 @@ const moment = require('moment');
 //     let count = 1;
 //     let str = "";
 //     let user;
-// 
+//
 //     let top = client.points;
 //     let lbTop = [];
-// 
+//
 //     top.map(l => ({level: l.level, id: l.id}))
 //       .sort((a, b) => b.level > a.level ? 1 : -1)
 //       .map(us => {
 //         lbTop.push(us.id);
 //       })
-// 
+//
 //     lbTop.forEach(level => {
 //       if (client.points.get(level).level <= 0) return;
 //       user = client.users.get(level);
@@ -105,16 +105,16 @@ const moment = require('moment');
 //     let count = 1;
 //     let str = "";
 //     let user;
-// 
+//
 //     let top = client.reputation;
 //     let lbTop = [];
-// 
+//
 //     top.map(r => ({rep: r.rep, id: r.id}))
 //       .sort((a, b) => b.rep > a.rep ? 1 : -1)
 //       .map(us => {
 //         lbTop.push(us.id);
 //       })
-// 
+//
 //     lbTop.forEach(rep => {
 //       if (client.reputation.get(rep).rep <= 0) return;
 //       user = client.users.get(rep);
@@ -134,16 +134,16 @@ const moment = require('moment');
 //     let count = 1;
 //     let str = "";
 //     let user;
-// 
+//
 //     let top = client.reputation;
 //     let lbTop = [];
-// 
+//
 //     top.map(r => ({sent: r.sent, id: r.id}))
 //       .sort((a, b) => b.sent > a.sent ? 1 : -1)
 //       .map(us => {
 //         lbTop.push(us.id);
 //       })
-// 
+//
 //     lbTop.forEach(rep => {
 //       user = client.users.get(rep);
 //       if (client.reputation.get(rep).sent <= 0) return;
@@ -163,9 +163,9 @@ const moment = require('moment');
 //     let count = 1;
 //     let str = "";
 //     let user;
-// 
+//
 //     let topToFilter = client.streaks;
-// 
+//
 //     /*
 //     let dateStreak = new Date(lastDailyClaimed);
 //     let momentStreak = moment(dateStreak);
@@ -184,16 +184,16 @@ const moment = require('moment');
 //         client.streaks.set(streak.id, {streak: 0, id: streak.id});
 //       }
 //     });
-// 
+//
 //     let top = client.streaks;
 //     let lbTop = [];
-// 
+//
 //     top.map(s => ({streak: s.streak, id: s.id}))
 //       .sort((a, b) => b.streak > a.streak ? 1 : -1)
 //       .map(us => {
 //         lbTop.push(us.id);
 //       })
-// 
+//
 //     lbTop.forEach(streak => {
 //       console.log(streak);
 //       user = client.users.get(streak);
@@ -211,16 +211,16 @@ const moment = require('moment');
 //     let count = 1;
 //     let str = "";
 //     let user;
-// 
+//
 //     let top = client.userStats;
 //     let lbTop = [];
-// 
+//
 //     top.map(d => ({dailies: d.dailies, id: d.id}))
 //       .sort((a, b) => b.dailies > a.dailies ? 1 : -1)
 //       .map(us => {
 //         lbTop.push(us.id);
 //       })
-// 
+//
 //     lbTop.forEach(daily => {
 //       user = client.users.get(daily);
 //       if (client.userStats.get(daily).dailies <= 0) return;
@@ -236,7 +236,7 @@ const moment = require('moment');
 //     });
 //     if (str === "") return message.channel.send("That page does not exist!");
 //     message.channel.send(`**📜 | Daily Leaderboard**\n\nPage ${page}\n\`\`\`python\n${str}\`\`\`\n\nYour spot: ${mySpot} with ${myScore} dailies`);
-// 
+//
 //   } else {
 //     message.channel.send("That's not a recognized leaderboard.\n\nOptions:\nbalance, xp, level, reputation, sentrep, streak, daily");
 //   }
@@ -244,13 +244,13 @@ const moment = require('moment');
 
 exports.run = (client, message, params, perms) => {
   // if (perms < 1 && message.author.id != '307571341916241922') return message.channel.send({embed: client.EmbedHelper.prebuiltEmbeds.noPermission});
-  
-  let perPage = 10;
-  
+
+  let perPage = 20;
+
   let type = params[0];
   if (!params[0] || !isNaN(params[0])) type = "xp";
   let page = 1;
-  
+
   if (!isNaN(params[0]) && params[0].indexOf(".") == -1) page = params[0];
   else if (!isNaN(params[1]) && params[1].indexOf(".") == -1) page = params[1];
   if (page < 1) return message.channel.send({
@@ -265,15 +265,15 @@ exports.run = (client, message, params, perms) => {
   assembleLeaderboard = function(page, title, db, value, unit, sortCallback) {
     let lb = [];
     sortCallback(db, lb);
-    
+
     let count = 1;
-    
+
     let leaderboard = "";
-    
+
     let mypos = [0, 0];
-    
+
     if (lb.indexOf(message.author.id) == -1) lb.push(message.author.id);
-    
+
     lb.forEach(id => {
       let user = client.users.get(id);
       let amount = db.get(id)[value] || 0;
@@ -285,7 +285,7 @@ exports.run = (client, message, params, perms) => {
       }
       if (user != undefined) count++;
     });
-    
+
     if (leaderboard === "") return message.channel.send({
       embed: new Discord.MessageEmbed()
         .setTitle(`The ${title} Leaderboard is only ${Math.ceil(count / perPage)} pages long!`)
@@ -293,17 +293,17 @@ exports.run = (client, message, params, perms) => {
         .setColor(client.EmbedHelper.colors.red)
         .setFooter("BIKE Alliance", client.user.avatarURL())
     })
-    
+
     message.channel.send({
       embed: new Discord.MessageEmbed()
         .setTitle(`📜 | ${title} Leaderboard Page ${page}`)
-        .setDescription(`${leaderboard}\n\nYou are currently position #${mypos[0]} with ${mypos[1]} ${unit}.`)
+        .setDescription(`${leaderboard}\n\nYou are currently position #${mypos[0]} with ${mypos[1].toLocaleString()} ${unit}.`)
         .setTimestamp()
         .setColor(client.EmbedHelper.colors.lime)
         .setFooter("BIKE Alliance", client.user.avatarURL())
     })
   }
-  
+
   if (type == "balance" || type == "bal" || type == "money" || type == "currency" || type == "coin" || type == "bikecoin" || type == "c" || type == "b") {
     assembleLeaderboard(page, "Balance", client.balance, "bal", "BikeCoin", (db, lb) => {
       db.map(board => ({bal: board.bal, id: board.id}))
@@ -321,7 +321,7 @@ exports.run = (client, message, params, perms) => {
       });
     });
   } else if (type == "level" || type == "l") {
-    assembleLeaderboard(page, "XP", client.points, "level", "XP", (db, lb) => {
+    assembleLeaderboard(page, "Level", client.points, "level", "levels", (db, lb) => {
       db.map(board => ({level: board.level, id: board.id}))
       .sort((a, b) => b.level > a.level ? 1 : -1)
       .map(user => {
@@ -360,7 +360,7 @@ exports.run = (client, message, params, perms) => {
         lb.push(user.id);
       });
     });
-  } else if (type === "dailies" || type === "daily" || type === "d") { 
+  } else if (type === "dailies" || type === "daily" || type === "d") {
     assembleLeaderboard(page, "Daily", client.userStats, "dailies", "dailies", (db, lb) => {
       db.map(board => ({dailies: board.dailies, id: board.id}))
       .sort((a, b) => b.dailies > a.dailies ? 1 : -1)
