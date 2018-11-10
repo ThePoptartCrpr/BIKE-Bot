@@ -17,16 +17,15 @@ require('./utils/eventLoader')(client);
 client.prefix = process.env.PREFIX;
 
 // Express magic
-app.get("/", (request, response) => {
+
+app.get('/', function(request, response) {
   console.log(Date.now() + " Ping Received");
-  response.sendStatus(200);
+  response.sendFile(__dirname + '/views/index.html');
 });
 
-app.listen(process.env.PORT);
-
-setInterval(() => {
-  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000);
+var listener = app.listen(process.env.PORT, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
 
 // Enmap
 const Enmap = require('enmap');
