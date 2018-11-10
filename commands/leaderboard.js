@@ -297,7 +297,7 @@ exports.run = (client, message, params, perms) => {
 
     message.channel.send({
       embed: new Discord.MessageEmbed()
-        .setTitle(`📜 | ${title} Leaderboard Page ${page}`)
+        .setTitle(`📜 | ${title} Leaderboard Page ${page}/${Math.ceil(count / perPage)}`)
         .setDescription(`${leaderboard}\n\nYou are currently position #${mypos[0]} with ${mypos[1].toLocaleString()} ${unit}.`)
         .setTimestamp()
         .setColor(client.EmbedHelper.colors.lime)
