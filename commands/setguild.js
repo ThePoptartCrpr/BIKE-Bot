@@ -46,7 +46,7 @@ exports.run = (client, message, params, perms) => {
   } else if (givenGuild == "infamy") {
     guild_role = infamy_role;
     color = client.EmbedHelper.colors.orange;
-  } else if (givenGuild == "Disowned") {
+  } else if (givenGuild == "disowned") {
     guild_role = disowned_role;
   } else {
     guild_role = guest_role;
