@@ -26,6 +26,7 @@ exports.run = (client, message, params, perms) => {
   let hk_role = message.guild.roles.find(role => role.name === "Hypixel Knights");
   // let divana_role = message.guild.roles.find("name", "Divana");
   let emplify_role = message.guild.roles.find(role => role.name === "Emplify");
+  let disowned_role = message.guild.roles.find(role => role.name === "Disowned");
   let infamy_role = message.guild.roles.find(role => role.name === "Infamy");
   let guest_role = message.guild.roles.find(role => role.name === "Guest");
   let awaiting_role = message.guild.roles.find(role => role.name === "Awaiting Roles");
@@ -45,6 +46,8 @@ exports.run = (client, message, params, perms) => {
   } else if (givenGuild == "infamy") {
     guild_role = infamy_role;
     color = client.EmbedHelper.colors.orange;
+  } else if (givenGuild == "Disowned") {
+    guild_role = disowned_role;
   } else {
     guild_role = guest_role;
     color = client.EmbedHelper.colors.blue;
@@ -54,6 +57,7 @@ exports.run = (client, message, params, perms) => {
   if (user.roles.has(awaiting_role.id)) user.roles.remove(awaiting_role.id);
   if (user.roles.has(hk_role.id)) user.roles.remove(hk_role.id);
   // if (user.roles.has(divana_role.id)) user.roles.remove(divana_role.id);
+  if (user.roles.has(disowned_role.id)) user.roles.remove(disowned_role.id);
   if (user.roles.has(emplify_role.id)) user.roles.remove(emplify_role.id);
   if (user.roles.has(infamy_role.id)) user.roles.remove(infamy_role.id);
   
@@ -63,7 +67,7 @@ exports.run = (client, message, params, perms) => {
   message.channel.send({
     embed: new client.Discord.MessageEmbed()
       .setTitle(`\👌 | Successfully updated roles for ${user.user.username}.`)
-      .setColor(color)
+      .setColor(guild_role.hexColor)
       .setTimestamp()
       .setFooter("BIKE Alliance", client.user.avatarURL())
   })
