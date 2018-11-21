@@ -1,4 +1,4 @@
-let guilds = ["hypixel knights", "hk", "divana", "emplify", "emp", "infamy", "guest"];
+let guilds = ["hypixel knights", "hk", "disowned", "emplify", "emp", "infamy", "guest"];
 
 exports.run = (client, message, params, perms) => {
   // let mod_role = message.guild.roles.find('name', "Moderator");
