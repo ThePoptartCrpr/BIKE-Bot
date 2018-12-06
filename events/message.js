@@ -12,6 +12,13 @@ module.exports = message => {
     message.react(client.emojis.find(emoji => emoji.name === "pingsock"));
   }
 
+  // Mentionable system
+  let events_role = message.guild.roles.find(role => role.id === '519755106996977666');
+
+  if (events_role && message.mentions.roles.find(role => role.id === events_role.id)) {
+    events_role.setMentionable(false, `Used by ${message.author.username}`);
+  }
+
   function updatePoints(message) {
     if (message.content.startsWith(client.prefix)) return;
 
