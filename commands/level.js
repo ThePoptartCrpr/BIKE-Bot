@@ -102,8 +102,8 @@ exports.run = (client, message, params, perms) => {
       .setAuthor(user.username, user.avatarURL())
       .addField("Level", `${level}\n\u200B`, true)
       .addField("Total XP", points.toLocaleString(), true)
-      .addField("Progress", `XP required for level **${level + 1}**: ${nextlevelpoints.toLocaleString()}\n**Progress**: ${progressPoints.toLocaleString()}/${progressNextPoints.toLocaleString()} (${Math.round(progressPoints/progressNextPoints * 100)}%), ${pointsLeft.toLocaleString()} XP left\n\n${getPercentBar(Math.round(progressPoints/progressNextPoints * 100))}`, true)
-      .addBlankField()
+      .addField("Progress", `XP required for level **${level + 1}**: ${nextlevelpoints.toLocaleString()}\n**Progress**: ${progressPoints.toLocaleString()}/${progressNextPoints.toLocaleString()} (${Math.round(progressPoints/progressNextPoints * 100)}%), ${pointsLeft.toLocaleString()} XP left`, true)
+      .addField(getPercentBar(Math.round(progressPoints/progressNextPoints * 100)), '\u200B');
       .addField("Reputation", `**Received: ${rep.rep}**\n**Sent**: ${rep.sent}`)
       .addField("Balance", `${client.emojis.find(emoji => emoji.name === "bikecoin")}${balance.toLocaleString()}`, true)
       .addField("Stats", `**Dailies claimed**: ${currStats.dailies}\n**Current streak**: ${streak.streak}`, true)
