@@ -3,7 +3,7 @@ const child = require('child_process');
 const exec = child.exec;
 
 exports.run = (client, message, params, perms) => {
-  if (perms < 5) return message.channel.send("You do not have permission to restart the bot.");
+  if (perms < 5) return message.channel.send("You do not have permission to fetch updates for the bot.");
   message.channel.send({
     embed: new client.Discord.MessageEmbed()
       .setTitle("Fetching latest update...")
