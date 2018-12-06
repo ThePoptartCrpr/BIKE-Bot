@@ -8,7 +8,7 @@ exports.run = (client, message, [type], perms) => {
       .setFooter("BIKE Alliance", client.user.avatarURL())
   });
 
-  message.member.addRole(subscriber_role.id);
+  message.member.roles.add(subscriber_role.id);
   message.channel.send({
     embed: new Discord.RichEmbed()
       .setTitle('👌 | You are now subscribed to event notifications.')

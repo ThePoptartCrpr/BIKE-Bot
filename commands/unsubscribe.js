@@ -9,7 +9,7 @@ exports.run = (client, message, [type], perms) => {
       .setFooter("BIKE Alliance", client.user.avatarURL())
   });
 
-  message.member.removeRole(subscriber_role.id);
+  message.member.roles.remove(subscriber_role.id);
   message.channel.send({
     embed: new Discord.RichEmbed()
       .setTitle('👌 | You are no longer subscribed to event notifications.')
