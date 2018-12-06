@@ -43,6 +43,11 @@ exports.run = (client, message, [role], perms) => {
       .setColor(client.EmbedHelper.colors.lime)
       .setTimestamp()
       .setFooter("BIKE Alliance", client.user.avatarURL())
+  }).then(msg => {
+    setTimeout(() => {
+      message.delete();
+      msg.delete();
+    }, 4000);
   });
 };
 
