@@ -1,4 +1,4 @@
-let guilds = ["hypixel knights", "hk", "disowned", "emplify", "emp", "infamy", "guest"];
+let guilds = ["hypixel knights", "hk", "infamy", "defiant", "def", "guest"];
 
 exports.run = (client, message, params, perms) => {
   // let mod_role = message.guild.roles.find('name', "Moderator");
@@ -24,9 +24,9 @@ exports.run = (client, message, params, perms) => {
   });
   
   let hk_role = message.guild.roles.find(role => role.name === "Hypixel Knights");
-  // let divana_role = message.guild.roles.find("name", "Divana");
-  let emplify_role = message.guild.roles.find(role => role.name === "Emplify");
-  let disowned_role = message.guild.roles.find(role => role.name === "Disowned");
+  let emplify_role = message.guild.roles.find(role => role.name === "Ex-Emplify");
+  let disowned_role = message.guild.roles.find(role => role.name === "Ex-Disowned");
+  let defiant_role = message.guild.roles.find(role => role.name === "Defiant");
   let infamy_role = message.guild.roles.find(role => role.name === "Infamy");
   let guest_role = message.guild.roles.find(role => role.name === "Guest");
   let awaiting_role = message.guild.roles.find(role => role.name === "Awaiting Roles");
@@ -36,34 +36,24 @@ exports.run = (client, message, params, perms) => {
   
   if (givenGuild == "hypixel knights" || givenGuild == "hk") { 
     guild_role = hk_role;
-    color = client.EmbedHelper.colors.yellow;
-  } else if (givenGuild == "divana") { 
-    // guild_role = divana_role;
-    // color = client.EmbedHelper.colors.purple;
-  } else if (givenGuild == "emplify" || givenGuild == "emp") {
-    guild_role = emplify_role;
-    color = client.EmbedHelper.colors.light_red;
   } else if (givenGuild == "infamy") {
     guild_role = infamy_role;
-    color = client.EmbedHelper.colors.orange;
-  } else if (givenGuild == "disowned") {
-    guild_role = disowned_role;
+  } else if (givenGuild == "defiant" || givenGuild == "def") {
+    guild_role = defiant_role;
   } else {
     guild_role = guest_role;
-    color = client.EmbedHelper.colors.blue;
   }
   
   if (user.roles.has(guest_role.id)) user.roles.remove(guest_role.id);
   if (user.roles.has(awaiting_role.id)) user.roles.remove(awaiting_role.id);
   if (user.roles.has(hk_role.id)) user.roles.remove(hk_role.id);
-  // if (user.roles.has(divana_role.id)) user.roles.remove(divana_role.id);
   if (user.roles.has(disowned_role.id)) user.roles.remove(disowned_role.id);
   if (user.roles.has(emplify_role.id)) user.roles.remove(emplify_role.id);
+  if (user.roles.has(defiant_role.id)) user.roles.remove(defiant_role.id);
   if (user.roles.has(infamy_role.id)) user.roles.remove(infamy_role.id);
   
   user.roles.add(guild_role.id);
   
-  // message.channel.send(`\:ok_hand: | Successfully updated roles for ${user.user.username}.`);
   message.channel.send({
     embed: new client.Discord.MessageEmbed()
       .setTitle(`\👌 | Successfully updated roles for ${user.user.username}.`)
