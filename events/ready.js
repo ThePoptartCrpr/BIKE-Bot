@@ -40,16 +40,16 @@ module.exports = client => {
     // const toRemind = client.reminders.filter(r => r.timestamp <= Date.now());
     const toRemind = client.reminders.filter(r => moment(new Date(r.timestamp)).isBefore(moment()));
     toRemind.forEach(reminder => {
-      // client.users.get(reminder.id).send(`⏰ | Reminder: ${reminder.reminder}`);
-      client.users.get(reminder.id).send({
+      let user = client.users.get(reminder.id);
+      if (user) user.send({
         embed: new client.Discord.MessageEmbed()
           .setTitle(`⏰ | Reminder:`)
           .setDescription(reminder.reminder)
           .setColor(client.EmbedHelper.colors.yellow)
           .setTimestamp()
           .setFooter("BIKE Alliance", client.user.avatarURL())
-      })
+      });
       client.reminders.delete(`${reminder.timestamp}`);
-    })
+    });
   }, 10000);
 }
