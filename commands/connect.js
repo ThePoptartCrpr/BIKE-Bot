@@ -30,7 +30,7 @@ exports.run = (client, message, [username], perms) => {
     message.channel.send({
       embed: client.embed()
         .setTitle(`Are you sure you want to connect your Discord account to the Minecraft account **${username}**?`)
-        .setDescription('(__Y__es/__N__o)')
+        .setDescription('(__Y__es / __N__o)')
         .setColor(client.EmbedHelper.colors.yellow)
     });
     const filter = m => m.author === message.author && ['y', 'n', 'yes', 'no'].indexOf(m.content.toLowerCase()) != -1;
