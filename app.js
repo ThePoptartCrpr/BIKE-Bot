@@ -51,6 +51,14 @@ client.userStats = new Enmap({provider: new EnmapLevel({name: "userStats", dataD
 client.currPoll = new Enmap({provider: new EnmapLevel({name: "currPoll", dataDir: "./.data"})});
 client.restartMsg = new Enmap({provider: new EnmapLevel({name: "restartMsg", dataDir: "./.data"})});
 
+
+client.connections = new Enmap({provider: new EnmapLevel({name: 'connections', dataDir: './.data'})});
+
+if (!client.connections.get('pending')) {
+  client.connections.set('connected', {});
+  client.connections.set('pending', {});
+}
+
 client.log = message => {
   console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message}`);
   try {
@@ -104,7 +112,7 @@ client.Discord = Discord;
 client.log("Loading utility functions...");
 client.EmbedHelper = require('./utils/embedHelper');
 client.log('Loaded EmbedHelper');
-require('./utils/functions.js');
+require('./utils/functions.js')(client);
 client.log('Loaded functions');
 
 client.reload = command => {
