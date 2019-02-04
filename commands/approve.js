@@ -42,7 +42,7 @@ exports.run = (client, message, [user], perms) => {
     if (err || !body) return console.error(err);
     
     let data = JSON.parse(body);
-    let username = data[data.length].name;
+    let username = data[data.length - 1].name;
     
     // TODO: hypixel lookup as well to respond with guild info
     message.channel.send({
