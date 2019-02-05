@@ -92,58 +92,85 @@ client.error = error => {
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 
-fs.readdir('./commands/', (err, files) => {
-  if (err) console.error(err);
-  client.log(`Loading a total of ${files.length} commands.`);
-  files.forEach(f => {
-    let props = require(`./commands/${f}`);
-    client.log(`Loading command: ${props.conf.name}.`);
-    client.commands.set(props.conf.name, props);
-    props.conf.aliases.forEach(alias => {
-      client.aliases.set(alias, props.conf.name);
-    });
-  });
-});
+let init = async () => {
+  let commandsLoaded = 0;
+  
+  // async function's fucked up, fix later (doesn't properly delay)
 
-client.Discord = Discord;
-
-client.log("Loading utility functions...");
-client.EmbedHelper = require('./utils/embedHelper');
-client.log('Loaded EmbedHelper');
-require('./utils/functions.js')(client);
-client.log('Loaded functions');
-
-client.reload = command => {
-  return new Promise((resolve, reject) => {
-    try {
-      delete require.cache[require.resolve(`./commands/${command}`)];
-      let cmd = require(`./commands/${command}`);
-      client.commands.delete(command);
-      client.aliases.forEach((cmd, alias) => {
-        if (cmd === command) client.aliases.delete(alias);
-      });
-      client.commands.set(command, cmd);
-      cmd.conf.aliases.forEach(alias => {
-        client.aliases.set(alias, cmd.conf.name);
+  let readCommands = category => {
+    return new Promise(async (resolve, reject) => {
+      let commands = 0;
+      let dir = './commands/';
+      if (category) dir += `${category}/`
+      await fs.readdir(dir, async (err, files) => {
+        if (err) console.error(err);
+        await files.forEach(async f => {
+          if (f.split('.').length === 1) await readCommands(f);
+          if (f.endsWith('.js')) {
+            let props = require(`${dir}/${f}`);
+            props.category = category ? category : 'None';
+            client.log(`Loading command: ${props.conf.name} from category ${category ? category : 'None'}.`);
+            client.commands.set(props.conf.name, props);
+            props.conf.aliases.forEach(alias => {
+              client.aliases.set(alias, props.conf.name);
+            });
+            commandsLoaded++;
+            commands++;
+          }
+        });
+        if (commands > 0) client.log(`Loaded a total of ${commands} commands from category ${category ? category : 'None'}.`);
       });
       resolve();
-    } catch (e) {
-      reject(e);
-    }
-  });
-};
+    });
+  }
 
-client.elevation = message => {
-  let permlvl = 0;
-  let helper_role = message.guild.roles.find(role => role.name === "Helper");
-  if (helper_role && message.member.roles.has(helper_role.id)) permlvl = 1;
-  let mod_role = message.guild.roles.find(role => role.name === "Moderator");
-  if (mod_role && message.member.roles.has(mod_role.id)) permlvl = 2;
-  let admin_role = message.guild.roles.find(role => role.name === "Admin");
-  if (admin_role && message.member.roles.has(admin_role.id)) permlvl = 3;
-  if (message.author.id == 198466968725094400) permlvl = 5;
-  return permlvl;
-};
+  await readCommands();
+  // client.log(`Loaded a total of ${commandsLoaded} commands.`);
 
-client.log("Connecting...");
-client.login(process.env.TOKEN);
+  client.Discord = Discord;
+
+  client.log("Loading utility functions...");
+  client.EmbedHelper = require('./utils/embedHelper');
+  client.log('Loaded EmbedHelper');
+  require('./utils/functions.js')(client);
+  client.log('Loaded functions');
+
+  client.reload = (command, category) => {
+    return new Promise((resolve, reject) => {
+      try {
+        let dir = `./commands/`;
+        dir = category === 'None' ? `${dir}/${command}` : `${dir}${category}/${command}`;
+        delete require.cache[require.resolve(dir)];
+        let cmd = require(dir);
+        client.commands.delete(command);
+        client.aliases.forEach((cmd, alias) => {
+          if (cmd === command) client.aliases.delete(alias);
+        });
+        client.commands.set(command, cmd);
+        cmd.conf.aliases.forEach(alias => {
+          client.aliases.set(alias, cmd.conf.name);
+        });
+        resolve();
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
+
+  client.elevation = message => {
+    let permlvl = 0;
+    let helper_role = message.guild.roles.find(role => role.name === "Helper");
+    if (helper_role && message.member.roles.has(helper_role.id)) permlvl = 1;
+    let mod_role = message.guild.roles.find(role => role.name === "Moderator");
+    if (mod_role && message.member.roles.has(mod_role.id)) permlvl = 2;
+    let admin_role = message.guild.roles.find(role => role.name === "Admin");
+    if (admin_role && message.member.roles.has(admin_role.id)) permlvl = 3;
+    if (message.author.id == 198466968725094400) permlvl = 5;
+    return permlvl;
+  };
+
+  client.log("Connecting...");
+  client.login(process.env.TOKEN);
+}
+
+init();

@@ -13,7 +13,7 @@ exports.run = async (client, message, [user], perms) => {
   if (!member) return message.channel.send({
     embed: new client.Discord.MessageEmbed()
       .setTitle('Usage:')
-      .setDescription('**+approve <@user>**')
+      .setDescription('**+connection <@user>**')
       .setColor(client.EmbedHelper.colors.red)
       .setTimestamp()
       .setFooter('BIKE Alliance', client.user.avatarURL())
@@ -50,7 +50,7 @@ exports.run = async (client, message, [user], perms) => {
       .addField('Username:', `**${player.displayname}**`)
       .addField('Guild:', `**${guildName}**`)
       .addField('Is in BIKE?', bikeGuilds.indexOf(guildName) != -1 ? '**Yes**' : '**No**')
-      .addField('\u200B\nApprove this connection?', ' - __Y__es to approve\n - __N__o to discard\n - __cancel__ to cancel')
+      .addField('\u200B\nApprove this connection?', ' - **__Y__es** to approve\n - **__N__o** to reject\n - **__cancel__** to cancel')
       .setColor(client.EmbedHelper.colors.yellow)
   });
   const filter = m => m.author === message.author && ['y', 'n', 'yes', 'no', 'cancel'].indexOf(m.content.toLowerCase()) != -1;
@@ -91,11 +91,11 @@ exports.run = async (client, message, [user], perms) => {
         client.connections.set('pending', pending);
         message.channel.send({
           embed: client.embed()
-            .setTitle(`${member.user.username}#${member.user.discriminator}'s connection has been discarded.`)
+            .setTitle(`${member.user.username}#${member.user.discriminator}'s pending connection has been rejected.`)
             .setColor(client.EmbedHelper.colors.orange)
         });
         client.modLog(
-          `**Type**: Account connection discard\n**Account connection attempted with**: ${player.displayname}`,
+          `**Type**: Account connection reject\n**Account connection attempted with**: ${player.displayname}`,
           false,
           member.user,
           message.author,

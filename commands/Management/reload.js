@@ -12,14 +12,15 @@ exports.run = (client, message, params, perms) => {
       .setColor(client.EmbedHelper.colors.red)
       .setTimestamp()
   })
-  let command;
+  let command, category;
   if (client.commands.has(params[0])) {
     command = params[0];
+    category = client.commands.get(command).category;
   } else if (client.aliases.has(params[0])) {
     command = client.aliases.get(params[0]);
+    category = client.commands.get(command).category;
   }
   if (!command) {
-    // return message.channel.send(`There is no command by the name of ${params[0]}.`);
     return message.channel.send({
       embed: new client.Discord.MessageEmbed()
         .setTitle(`There is no command by the name of ${param[0]}`)
@@ -27,7 +28,6 @@ exports.run = (client, message, params, perms) => {
         .setTimestamp()
     })
   } else {
-    // message.channel.send(`Reloading ${command}...`)
     message.channel.send({
       embed: new client.Discord.MessageEmbed()
         .setTitle(`Reloading command ${command}...`)
@@ -35,9 +35,8 @@ exports.run = (client, message, params, perms) => {
         .setTimestamp()
     })
       .then(m => {
-        client.reload(command)
+        client.reload(command, category)
           .then(() => {
-            // m.edit(`Successfully reloaded ${command}.`);
             m.edit({
               embed: new client.Discord.MessageEmbed()
                 .setTitle(`Successfully reloaded command ${command}.`)
@@ -46,7 +45,6 @@ exports.run = (client, message, params, perms) => {
             })
           })
           .catch(e => {
-            // m.edit(`Reload failed for command ${command}. Please check console.`);
             m.edit({
               embed: new client.Discord.MessageEmbed()
                 .setTitle(`Reload failed for command ${command}. Please check console.`)

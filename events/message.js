@@ -96,7 +96,6 @@ module.exports = message => {
   } else if (client.aliases.has(command)) {
     cmd = client.commands.get(client.aliases.get(command));
   } else {
-    // message.channel.send(`Unknown command. Try ${client.prefix}help for a list of commands.`);
     message.channel.send({
       embed: new client.Discord.MessageEmbed()
         .setTitle("Unknown command.")
@@ -124,6 +123,5 @@ module.exports = message => {
     }
   }
 
-  // console.log(`[${new Date().toLocaleTimeString()}]: ${command} ${params.join(" ")}`);
   client.log(`${message.author.username}#${message.author.discriminator}: ${command} ${params.join(" ")}`);
 }
