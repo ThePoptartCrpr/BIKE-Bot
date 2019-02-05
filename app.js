@@ -57,11 +57,6 @@ client.restartMsg = new Enmap({provider: new EnmapLevel({name: "restartMsg", dat
 
 client.connections = new Enmap({provider: new EnmapLevel({name: 'connections', dataDir: './.data'})});
 
-if (!client.connections.get('pending')) {
-  client.connections.set('connected', {});
-  client.connections.set('pending', {});
-}
-
 client.log = message => {
   console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message}`);
   try {

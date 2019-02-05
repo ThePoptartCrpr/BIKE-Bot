@@ -68,6 +68,7 @@ exports.run = async (client, message, [user], perms) => {
             .setTitle(`👌 | ${member.user.username}#${member.user.discriminator}'s Minecraft account connection has been approved.`)
             .setColor(client.EmbedHelper.colors.lime)
         });
+        client.updateRoles(member.id, uuid);
         client.modLog(
           `**Type**: Account connection approval\n**Account connection**: ${player.displayname}`,
           false,

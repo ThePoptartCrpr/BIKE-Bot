@@ -1,7 +1,6 @@
 const moment = require('moment');
 
 module.exports = client => {
-  // console.log(`${new Date().toLocaleTimeString()} Initialized.`);
   client.log("Initialized.");
   if (client.restartMsg.get("msg")) {
     let channelId = client.restartMsg.get("msg").channel;
@@ -25,6 +24,9 @@ module.exports = client => {
     })
   }
   client.user.setActivity(`${client.prefix}help`);
+  
+  if (!client.connections.get('pending')) client.connections.set('pending', {});
+  if (!client.connections.get('connected')) client.connections.set('connected', {});
 
   /*console.log(client.reminders);
   test = client.reminders.get('Thu Feb 15 2018 19:29:47 GMT-0800').timestamp;
@@ -52,4 +54,19 @@ module.exports = client => {
       client.reminders.delete(`${reminder.timestamp}`);
     });
   }, 10000);
+  
+  
+  // Update roles
+  let updateRoles = () => {
+    let connections = client.connections.get('connected');
+    Object.keys(connections).forEach(id => {
+      client.updateRoles(id, connections[id].mc);
+    });
+    
+    setTimeout(() => {
+      updateRoles();
+    }, 1200000);
+  }
+  
+  updateRoles();
 }

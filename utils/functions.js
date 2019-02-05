@@ -74,11 +74,56 @@ module.exports = (client => {
   }
   
   // Role utilities
-  client.updateRoles = (userId, uuid) => {
-    let user = client.users.get(user => user.id === userId);
-    if (!user) return;
+  client.updateRoles = async (userId, uuid) => {
+    let guild = client.guilds.find(guild => guild.id === '429734306966011914');
+    // let guild = client.guilds.find(guild => guild.id === '269652484274913282');
+    if (!guild) return;
     
+    let member = guild.members.find(user => user.id === userId);
+    if (!member) return console.log('User not found: ' + userId);
     
+    let guildId = await client.hypixelapi.findGuild('member', uuid).then(guild => guild.guild);
+    let guildName = guildId ? await client.hypixelapi.getGuild(guildId).then(guild => guild.guild.name) : 'none';
+    
+    let guildNameRoleMap = {
+      'Hypixel Knights': 'Hypixel Knights',
+      'Infamy': 'Infamy',
+      'Defiant': 'Defiant',
+      'none': 'Guest'
+    }
+    
+    let getGuild = name => {
+      return Object.keys(guildNameRoleMap).indexOf(name) != -1 ? guildNameRoleMap[name] : 'Guest';
+    }
+    
+    let toAssign = guild.roles.find(role => role.name === getGuild(guildName)).id;
+    if (member.roles.has(toAssign)) return console.log('Skipping ' + userId + ': roles already assigned properly');
+    
+    let hk_role = guild.roles.find(role => role.name === "Hypixel Knights");
+    let emplify_role = guild.roles.find(role => role.name === "Ex-Emplify");
+    let disowned_role = guild.roles.find(role => role.name === "Ex-Disowned");
+    let defiant_role = guild.roles.find(role => role.name === "Defiant");
+    let infamy_role = guild.roles.find(role => role.name === "Infamy");
+    let guest_role = guild.roles.find(role => role.name === "Guest");
+    let awaiting_role = guild.roles.find(role => role.name === "Awaiting Roles");
+    
+    if (member.roles.has(guest_role.id)) member.roles.remove(guest_role.id);
+    if (member.roles.has(awaiting_role.id)) member.roles.remove(awaiting_role.id);
+    if (member.roles.has(hk_role.id)) member.roles.remove(hk_role.id);
+    if (member.roles.has(disowned_role.id)) member.roles.remove(disowned_role.id);
+    if (member.roles.has(emplify_role.id)) member.roles.remove(emplify_role.id);
+    if (member.roles.has(defiant_role.id)) member.roles.remove(defiant_role.id);
+    if (member.roles.has(infamy_role.id)) member.roles.remove(infamy_role.id);
+    
+    member.roles.add(toAssign);
+    
+    client.modLog(
+      `**Type**: Automatic role update\n**Reason**: User changed guilds and roles were reassigned\n**New guild role assigned**: ${getGuild(guildName)}`,
+      false,
+      member.user,
+      client.user,
+      client.EmbedHelper.colors.lime
+    );
   }
   
 });
