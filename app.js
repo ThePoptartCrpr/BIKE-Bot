@@ -146,6 +146,7 @@ let init = async () => {
         client.aliases.forEach((cmd, alias) => {
           if (cmd === command) client.aliases.delete(alias);
         });
+        cmd.category = category ? category : 'None';
         client.commands.set(command, cmd);
         cmd.conf.aliases.forEach(alias => {
           client.aliases.set(alias, cmd.conf.name);
