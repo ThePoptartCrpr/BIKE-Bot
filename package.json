@@ -17,6 +17,7 @@
     "express": "^4.16.4",
     "ffmpeg-binaries": "^3.2.2-3",
     "glitch-deploy": "^1.1.6",
+    "hypixel-api": "^1.1.0",
     "moment": "^2.20.1",
     "node-opus": "^0.2.7",
     "request": "^2.88.0",

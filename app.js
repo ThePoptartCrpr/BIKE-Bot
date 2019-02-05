@@ -10,6 +10,9 @@ const client = new Discord.Client();
 const express = require('express');
 const app = express();
 
+const HypixelAPI = require('hypixel-api');
+client.hypixelapi = new HypixelAPI(process.env.HYPIXEL_API_KEY);
+
 // File dependencies
 require('./utils/eventLoader')(client);
 
