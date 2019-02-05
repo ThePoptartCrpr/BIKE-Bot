@@ -1,14 +1,6 @@
 const bikeGuilds = ['Hypixel Knights', 'Defiant', 'Infamy']
 
 exports.run = async (client, message, [user], perms) => {
-  
-  /*
-  pending: {
-    discord-id: {
-      mc: mc-uuid;
-    }
-  }
-   */
   if (perms < 1) return message.channel.send({
     embed: new client.Discord.MessageEmbed()
       .setTitle('You do not have permission to accept account connections.')
@@ -53,16 +45,15 @@ exports.run = async (client, message, [user], perms) => {
   
   message.channel.send({
     embed: client.embed()
-      .setTitle(`Are you sure you want to approve ${member.user.username}#${member.user.discriminator}'s account connection?`)
-      // .setDescription('(__Y__es / __N__o)')
+      .setTitle(`${member.user.username}#${member.user.discriminator}'s account connection request`)
       .addField('Discord account:', member)
       .addField('Username:', `**${player.displayname}**`)
       .addField('Guild:', `**${guildName}**`)
       .addField('Is in BIKE?', bikeGuilds.indexOf(guildName) != -1 ? '**Yes**' : '**No**')
-      .addField('\u200B\nDo you accept?', '(__Y__es / __N__o)')
+      .addField('\u200B\nApprove this connection?', ' - __Y__es to approve\n - __N__o to discard\n - __cancel__ to cancel')
       .setColor(client.EmbedHelper.colors.yellow)
   });
-  const filter = m => m.author === message.author && ['y', 'n', 'yes', 'no'].indexOf(m.content.toLowerCase()) != -1;
+  const filter = m => m.author === message.author && ['y', 'n', 'yes', 'no', 'cancel'].indexOf(m.content.toLowerCase()) != -1;
   message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ['time']})
     .then(collected => {
       if (collected.first().content.toLowerCase() === "y" || collected.first().content.toLowerCase() === "yes") {
@@ -77,28 +68,56 @@ exports.run = async (client, message, [user], perms) => {
             .setTitle(`👌 | ${member.user.username}#${member.user.discriminator}'s Minecraft account connection has been approved.`)
             .setColor(client.EmbedHelper.colors.lime)
         });
-      } else {
+        client.modLog(
+          `**Type**: Account connection approval\n**Account connection**: ${player.displayname}`,
+          false,
+          member.user,
+          message.author,
+          client.EmbedHelper.colors.orange
+        );
+      } else if (collected.first().content.toLowerCase() === 'cancel') {
         message.channel.send({
           embed: new client.Discord.MessageEmbed()
             .setTitle(`Account connection approval cancelled.`)
+            .setDescription('You can still go back to approve it later.')
             .setColor(client.EmbedHelper.colors.red)
             .setTimestamp()
             .setFooter("BIKE Alliance", client.user.avatarURL())
         });
+      } else {
+        let pending = client.connections.get('pending');
+        delete pending[member.id];
+        client.connections.set('pending', pending);
+        message.channel.send({
+          embed: client.embed()
+            .setTitle(`${member.user.username}#${member.user.discriminator}'s connection has been discarded.`)
+            .setColor(client.EmbedHelper.colors.orange)
+        });
+        client.modLog(
+          `**Type**: Account connection discard\n**Account connection attempted with**: ${player.displayname}`,
+          false,
+          member.user,
+          message.author,
+          client.EmbedHelper.colors.orange
+        );
       }
     })
-    .catch(collected => message.channel.send({
-      embed: new client.Discord.MessageEmbed()
-        .setTitle(`Ran out of time, connection cancelled.`)
-        .setColor(client.EmbedHelper.colors.red)
-        .setTimestamp()
-        .setFooter("BIKE Alliance", client.user.avatarURL())
-    }));
+    .catch(collected => {
+      console.log(collected);
+      message.channel.send({
+        embed: new client.Discord.MessageEmbed()
+          .setTitle(`Ran out of time, connection cancelled.`)
+          .setDescription('You can still go back to approve it later.')
+          .setColor(client.EmbedHelper.colors.red)
+          .setTimestamp()
+          .setFooter("BIKE Alliance", client.user.avatarURL())
+      });
+    });
 };
 
 exports.conf = {
   name: 'approve',
-  aliases: [],
+  aliases: ['connection'],
   permLevel: 0,
   usage: '+approve'
 };

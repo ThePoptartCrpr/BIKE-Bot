@@ -34,18 +34,43 @@ module.exports = (client => {
     return true;
   }
   
-  // Embed utilities
+  // Mod log utilities
   client.embed = () => {
     return new client.Discord.MessageEmbed()
       .setTimestamp()
       .setFooter('BIKE Alliance', client.user.avatarURL())
   }
   
-  client.modLog = embed => {
+  client.modLog = (description, isModCase, member, moderator, color) => {
     let channel = client.channels.find(channel => channel.id === process.env.MODLOG_CHANNEL);
-    if (!channel) return;
+    if (!channel) return client.log('ERROR | NO MODLOGS CHANNEL');
     
-    channel.send({embed: embed});
+    type = isModCase ? 'case' : 'action';
+    caseNo = 0;
+    
+    if (moderator) description += `\n**Responsible moderator**: ${moderator.username}#${moderator.discriminator}`
+    
+    channel.send({
+      embed: client.embed()
+        .setAuthor(`${member.username}#${member.discriminator} (ID ${member.id})`, member.avatarURL())
+        .setDescription(description)
+        .setColor(color ? color : client.EmbedHelper.colors.orange)
+        .setFooter(type === 'case' ? `Case ${caseNo} | BIKE Moderation` : `Action Record | Bike Moderation`, client.user.avatarURL())
+    }).then(modMsg => {
+      
+      // Work in progress dynamic case system, just leaving here for now
+      /*let cases = 0;
+      client.cases.forEach(caseNo => cases = caseNo.case);
+      let moderator = message.author;
+      let caseNo = cases;
+      caseNo++;
+      let obj = info;
+      info.case = caseNo;
+      info.id = user.id;
+      info.type = type;
+      
+      client.cases.set(caseNo, {case: caseNo, id: user.id, type: "warn", length: "n/a", reason: reason, moderator: moderator.id, msgid: modMsg.id});*/
+    })
   }
   
   // Role utilities
