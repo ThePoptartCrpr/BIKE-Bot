@@ -1,4 +1,4 @@
-exports.run = (client, message, params, perms) => {
+exports.run = async (client, message, params, perms) => {
   let user = message.author;
   let tempUser = null;
   if (message.mentions.users.first()) tempUser = message.mentions.members.first();
@@ -7,9 +7,6 @@ exports.run = (client, message, params, perms) => {
     if (!tempUser) tempUser = message.guild.members.find(val => val.user.username.toLowerCase().indexOf(params[0].toLowerCase()) != -1);
   }
   if (tempUser !== null) user = tempUser.user;
-
-  // console.log(user);
-  console.log("temp", tempUser);
 
   let points = 0;
   let level = 0;
@@ -62,55 +59,25 @@ exports.run = (client, message, params, perms) => {
 
     return str;
   }
-
-  /*message.channel.send({embed: {
-    color: 3447003,
-    author: {
-      name: `${user.username}`,
-      icon_url: user.avatarURL(),
-    },
-    fields: [{
-        name: "Level",
-        value: `${level}`
-      },
-      {
-        name: "Total XP",
-        value: `${points.toLocaleString()}`
-      },
-      {
-        name: "Progress",
-        value: `**XP required for level ${level + 1}**: ${nextlevelpoints.toLocaleString()}\n**Progress**: ${progressPoints.toLocaleString()}/${progressNextPoints.toLocaleString()} (${Math.round(progressPoints/progressNextPoints * 100)}%), ${pointsLeft.toLocaleString()} XP left`
-      },
-      {
-        name: "Reputation",
-        value: `**Received**: ${rep.rep}\n**Sent**: ${rep.sent}`
-      },
-      {
-        name: "Balance",
-        value: `${client.emojis.find(emoji => emoji.name === "bikecoin")}${balance.toLocaleString()}`
-      },
-      {
-        name: "Stats",
-        value: `**Dailies claimed**: ${currStats.dailies}\n**Current streak**: ${streak.streak}`
-      }
-    ],
-    timestamp: new Date()
-  }})*/
+  
+  let embed = client.embed()
+    .setAuthor(user.username, user.avatarURL())
+    .addField("Level", `${level}\n\u200B`, true)
+    .addField("Total XP", points.toLocaleString(), true)
+    .addField("Progress", `XP required for level **${level + 1}**: ${nextlevelpoints.toLocaleString()}\n**Progress**: ${progressPoints.toLocaleString()}/${progressNextPoints.toLocaleString()} (${Math.round(progressPoints/progressNextPoints * 100)}%), ${pointsLeft.toLocaleString()} XP left`, true)
+    .addField(getPercentBar(Math.round(progressPoints/progressNextPoints * 100)), '\u200B')
+    .addField("Reputation", `**Received: ${rep.rep}**\n**Sent**: ${rep.sent}`)
+    .addField("Balance", `${client.emojis.find(emoji => emoji.name === "bikecoin")}${balance.toLocaleString()}`, true)
+    .addField("Stats", `**Dailies claimed**: ${currStats.dailies}\n**Current streak**: ${streak.streak}`, true)
+    .setColor(client.EmbedHelper.colors.blue)
+  
+  if (client.connections.get('connected')[user.id]) await client.hypixelapi.getPlayer('uuid', client.connections.get('connected')[user.id].mc).then(data => {
+    embed.addField('\u200B\nConnected Minecraft account:', data.player.displayname);
+  });
 
   message.channel.send({
-    embed: new client.Discord.MessageEmbed()
-      .setAuthor(user.username, user.avatarURL())
-      .addField("Level", `${level}\n\u200B`, true)
-      .addField("Total XP", points.toLocaleString(), true)
-      .addField("Progress", `XP required for level **${level + 1}**: ${nextlevelpoints.toLocaleString()}\n**Progress**: ${progressPoints.toLocaleString()}/${progressNextPoints.toLocaleString()} (${Math.round(progressPoints/progressNextPoints * 100)}%), ${pointsLeft.toLocaleString()} XP left`, true)
-      .addField(getPercentBar(Math.round(progressPoints/progressNextPoints * 100)), '\u200B')
-      .addField("Reputation", `**Received: ${rep.rep}**\n**Sent**: ${rep.sent}`)
-      .addField("Balance", `${client.emojis.find(emoji => emoji.name === "bikecoin")}${balance.toLocaleString()}`, true)
-      .addField("Stats", `**Dailies claimed**: ${currStats.dailies}\n**Current streak**: ${streak.streak}`, true)
-      .setColor(client.EmbedHelper.colors.blue)
-      .setTimestamp()
-      .setFooter("BIKE Alliance", client.user.avatarURL())
-  })
+    embed: embed
+  });
 
 };
 
