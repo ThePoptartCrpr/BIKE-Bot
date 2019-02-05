@@ -96,6 +96,9 @@ module.exports = (client => {
       return Object.keys(guildNameRoleMap).indexOf(name) != -1 ? guildNameRoleMap[name] : 'Guest';
     }
     
+    let linked_role = guild.roles.find(role => role.name === 'Linked');
+    if (!member.roles.has(linked_role).id) member.roles.add(linked_role.id);
+    
     let toAssign = guild.roles.find(role => role.name === getGuild(guildName)).id;
     if (member.roles.has(toAssign)) return console.log('Skipping ' + userId + ': roles already assigned properly');
     
