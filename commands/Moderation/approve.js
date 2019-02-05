@@ -21,7 +21,7 @@ exports.run = async (client, message, [user], perms) => {
   
   if (!client.connections.get('pending')[member.id]) return message.channel.send({
     embed: new client.Discord.MessageEmbed()
-      .setTitle('That user has not requested a new connection!')
+      .setTitle('That user has not linked their account yet and has no further pending connections.')
       .setDescription('If you would like to force override their existing account connection, please use **+connect <@user> <MC username>**')
       .setColor(client.EmbedHelper.colors.yellow)
       .setTimestamp()
@@ -50,7 +50,7 @@ exports.run = async (client, message, [user], perms) => {
       .addField('Username:', `**${player.displayname}**`)
       .addField('Guild:', `**${guildName}**`)
       .addField('Is in BIKE?', bikeGuilds.indexOf(guildName) != -1 ? '**Yes**' : '**No**')
-      .addField('\u200B\nApprove this connection?', ' - **__Y__es** to approve\n - **__N__o** to reject\n - **__cancel__** to cancel')
+      .addField('\u200B\nApprove this connection?', ' - **__Y__es** to approve\n - **__N__o** to reject\n - **__c__ancel** to cancel')
       .setColor(client.EmbedHelper.colors.yellow)
   });
   const filter = m => m.author === message.author && ['y', 'n', 'yes', 'no', 'cancel'].indexOf(m.content.toLowerCase()) != -1;
@@ -76,7 +76,7 @@ exports.run = async (client, message, [user], perms) => {
           message.author,
           client.EmbedHelper.colors.orange
         );
-      } else if (collected.first().content.toLowerCase() === 'cancel') {
+      } else if (collected.first().content.toLowerCase() === 'c' || collected.first().content.toLowerCase() === 'cancel') {
         message.channel.send({
           embed: new client.Discord.MessageEmbed()
             .setTitle(`Account connection approval cancelled.`)
