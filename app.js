@@ -54,9 +54,11 @@ client.userStats = new Enmap({provider: new EnmapLevel({name: "userStats", dataD
 client.currPoll = new Enmap({provider: new EnmapLevel({name: "currPoll", dataDir: "./.data"})});
 client.restartMsg = new Enmap({provider: new EnmapLevel({name: "restartMsg", dataDir: "./.data"})});
 
-
+// BIKE
 client.connections = new Enmap({provider: new EnmapLevel({name: 'connections', dataDir: './.data'})});
+client.guilds = new Enmap({provider: new EnmapLevel({name: 'guilds', dataDir: './.data'})});
 
+// Utilities
 client.log = message => {
   console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message}`);
   try {
