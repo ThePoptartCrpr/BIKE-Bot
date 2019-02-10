@@ -56,7 +56,7 @@ client.restartMsg = new Enmap({provider: new EnmapLevel({name: "restartMsg", dat
 
 // BIKE
 client.connections = new Enmap({provider: new EnmapLevel({name: 'connections', dataDir: './.data'})});
-client.guilds = new Enmap({provider: new EnmapLevel({name: 'guilds', dataDir: './.data'})});
+client.bikeguilds = new Enmap({provider: new EnmapLevel({name: 'bikeguilds', dataDir: './.data'})});
 
 // Utilities
 client.log = message => {
