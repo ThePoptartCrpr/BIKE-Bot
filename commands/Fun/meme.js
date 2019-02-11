@@ -1,7 +1,7 @@
 const puppy = require('random-puppy');
 
 exports.run = (client, message, args) => {
-  const possibleSubreddits = ['me_irl', 'prequelmemes', 'deepfriedmemes', 'surrealmemes', 'wackytictacs', 'bonehurtingjuice', 'MemeEconomy', 'memes'];
+  const possibleSubreddits = ['me_irl', 'prequelmemes', 'deepfriedmemes', 'surrealmemes', 'hypixelmemes', 'wackytictacs', 'bonehurtingjuice', 'MemeEconomy', 'memes'];
   let subreddit;
   
   const getAvailableSubreddits = () => {
@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
         embed: client.embed()
           .setTitle(`That subreddit isn't recognized!`)
           .addField('Available subreddits', `${getAvailableSubreddits()}`)
-          .addField('Don\'t see your favorite meme subreddit on there?', 'go yell at brennan lmao')
+          .addField('Don\'t see your favorite meme subreddit on there?', 'Let us know!')
           .setColor(client.EmbedHelper.colors.red)
       });
     }
