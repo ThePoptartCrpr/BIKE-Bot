@@ -32,7 +32,7 @@ exports.run = (client, message, args) => {
   puppy(subreddit).then(url => {
     message.channel.send({
       embed: client.embed()
-        .setAuthor(message.author.username, message.author.avatarURL)
+        .setAuthor(message.author.username, message.author.avatarURL())
         .setTitle(`Random Meme from r/${subreddit}`)
         .setImage(url)
         .setColor(client.EmbedHelper.colors.gold)
@@ -42,7 +42,7 @@ exports.run = (client, message, args) => {
 
 exports.conf = {
   name: 'meme',
-  aliases: []
+  aliases: ['m']
 };
 
 exports.help = {
