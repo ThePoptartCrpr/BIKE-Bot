@@ -65,7 +65,7 @@ exports.run = (client, message, params, perms) => {
 
 exports.conf = {
   name: 'setguild',
-  aliases: ['guild', 'sg'],
+  aliases: ['sg'],
   permLevel: 0,
   usage: '+setguild'
 };
