@@ -23,7 +23,7 @@ exports.run = (client, message, params, perms) => {
   if (!command) {
     return message.channel.send({
       embed: new client.Discord.MessageEmbed()
-        .setTitle(`There is no command by the name of ${param[0]}`)
+        .setTitle(`There is no command by the name of ${params[0]}`)
         .setColor(client.EmbedHelper.colors.red)
         .setTimestamp()
     })
