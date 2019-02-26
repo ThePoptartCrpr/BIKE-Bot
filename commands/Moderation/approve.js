@@ -50,7 +50,7 @@ exports.run = async (client, message, [user], perms) => {
       .addField('Username:', `**${player.displayname}**`)
       .addField('Guild:', `**${guildName}**`)
       .addField('Is in BIKE?', bikeGuilds.indexOf(guildName) != -1 ? '**Yes**' : '**No**')
-      .addField('\u200B\nApprove this connection?', '\u200B - **__Y__es** to approve\n - **__N__o** to reject\n - **__C__ancel** to cancel')
+      .addField('\u200B\nApprove this connection?', '\u200B - **__Y__es** to approve\n\u200B - **__N__o** to reject\n\u200B - **__C__ancel** to cancel')
       .setColor(client.EmbedHelper.colors.yellow)
   });
   const filter = m => m.author === message.author && ['y', 'n', 'yes', 'no', 'c', 'cancel'].indexOf(m.content.toLowerCase()) != -1;
