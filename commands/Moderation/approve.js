@@ -54,7 +54,7 @@ exports.run = async (client, message, [user], perms) => {
       .setColor(client.EmbedHelper.colors.yellow)
   });
   const filter = m => m.author === message.author && ['y', 'n', 'yes', 'no', 'c', 'cancel'].indexOf(m.content.toLowerCase()) != -1;
-  message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ['time']})
+  message.channel.awaitMessages(filter, {max: 1, time: 30000, errors: ['time']})
     .then(collected => {
       if (collected.first().content.toLowerCase() === "y" || collected.first().content.toLowerCase() === "yes") {
         let pending = client.connections.get('pending');
