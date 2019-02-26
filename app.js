@@ -46,6 +46,7 @@ client.points = new Enmap({provider: new EnmapLevel({name: "points", dataDir: ".
 client.reputation = new Enmap({provider: new EnmapLevel({name: "reputation", dataDir: "./.data"})});
 client.prevReps = new Enmap({provider: new EnmapLevel({name: "prevReps", dataDir: "./.data"})});
 client.streaks = new Enmap({provider: new EnmapLevel({name: "streaks", dataDir: "./.data"})});
+client.notifications = new Enmap({provider: new EnmapLevel({name: 'notifications', dataDir: './.data'})});
 
 client.cooldowns = new Enmap({provider: new EnmapLevel({name: "cooldowns", dataDir: "./.data"})});
 

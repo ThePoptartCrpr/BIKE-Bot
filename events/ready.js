@@ -28,18 +28,35 @@ module.exports = client => {
   if (!client.connections.get('pending')) client.connections.set('pending', {});
   if (!client.connections.get('connected')) client.connections.set('connected', {});
 
-  /*console.log(client.reminders);
-  test = client.reminders.get('Thu Feb 15 2018 19:29:47 GMT-0800').timestamp;
-  console.log(moment(new Date(client.reminders.get('Thu Feb 15 2018 19:29:47 GMT-0800').timestamp)));
-
-
-  client.reminders.forEach(reminder => {
-    console.log(moment(new Date(reminder.timestamp)));
-    console.log(moment());
-  })*/
+  // Notifications
+  let notifyStaffConnections = () => {
+    let lastNotified = client.notifications.get('connections') || { date: new Date('December 17, 1995 03:24:00') };
+    if (new Date(lastNotified.date).getDate() != new Date().getDate()) {
+      console.log('new day');
+      let pending = Object.keys(client.connections.get('pending'));
+      if (pending.length != 0) {
+        let channel = client.channels.find(channel => channel.id === process.env.STAFF_CHANNEL);
+        
+        // TODO: make a universal notify function
+        channel.send({
+          embed: client.embed()
+            .setTitle(`🔔 | There are still ${pending.length} pending connections!`)
+            .setDescription('View pending connections with **+connections**.')
+            .setColor(client.EmbedHelper.colors.gold)
+        });
+      }
+      
+      client.notifications.set('connections', { date: new Date()});
+    }
+    
+    setTimeout(() => {
+      notifyStaffConnections();
+    }, 1200000);
+  }
+  
+  notifyStaffConnections();
 
   setInterval(() => {
-    // const toRemind = client.reminders.filter(r => r.timestamp <= Date.now());
     const toRemind = client.reminders.filter(r => moment(new Date(r.timestamp)).isBefore(moment()));
     toRemind.forEach(reminder => {
       let user = client.users.get(reminder.id);

@@ -28,17 +28,13 @@ exports.run = (client, message, params, perms) => {
           
           let cases = 0;
           client.cases.forEach(caseNo => {
-            cases = caseNo.case;
-            // console.log(caseNo);
+            cases++;
           })
-          // console.log(cases);
           
           let modlogs = client.channels.filter(c => c.type === "text").get(modlogschannelid);
           let moderator = message.author;
           let caseNo = cases;
           caseNo++;
-          
-          // console.log(user.avatarURL);
           
           modlogs.send({embed: {
             color: 3447003,
