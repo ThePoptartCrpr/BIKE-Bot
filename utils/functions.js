@@ -103,8 +103,6 @@ module.exports = (client => {
     if (member.roles.has(toAssign)) return console.log('Skipping ' + userId + ': roles already assigned properly');
     
     let hk_role = guild.roles.find(role => role.name === "Hypixel Knights");
-    let emplify_role = guild.roles.find(role => role.name === "Ex-Emplify");
-    let disowned_role = guild.roles.find(role => role.name === "Ex-Disowned");
     let defiant_role = guild.roles.find(role => role.name === "Defiant");
     let infamy_role = guild.roles.find(role => role.name === "Infamy");
     let guest_role = guild.roles.find(role => role.name === "Guest");
@@ -113,8 +111,6 @@ module.exports = (client => {
     if (member.roles.has(guest_role.id)) member.roles.remove(guest_role.id);
     if (member.roles.has(awaiting_role.id)) member.roles.remove(awaiting_role.id);
     if (member.roles.has(hk_role.id)) member.roles.remove(hk_role.id);
-    if (member.roles.has(disowned_role.id)) member.roles.remove(disowned_role.id);
-    if (member.roles.has(emplify_role.id)) member.roles.remove(emplify_role.id);
     if (member.roles.has(defiant_role.id)) member.roles.remove(defiant_role.id);
     if (member.roles.has(infamy_role.id)) member.roles.remove(infamy_role.id);
     
