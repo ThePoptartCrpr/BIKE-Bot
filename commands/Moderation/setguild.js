@@ -24,8 +24,6 @@ exports.run = (client, message, params, perms) => {
   });
   
   let hk_role = message.guild.roles.find(role => role.name === "Hypixel Knights");
-  let emplify_role = message.guild.roles.find(role => role.name === "Ex-Emplify");
-  let disowned_role = message.guild.roles.find(role => role.name === "Ex-Disowned");
   let defiant_role = message.guild.roles.find(role => role.name === "Defiant");
   let infamy_role = message.guild.roles.find(role => role.name === "Infamy");
   let guest_role = message.guild.roles.find(role => role.name === "Guest");
@@ -47,8 +45,6 @@ exports.run = (client, message, params, perms) => {
   if (user.roles.has(guest_role.id)) user.roles.remove(guest_role.id);
   if (user.roles.has(awaiting_role.id)) user.roles.remove(awaiting_role.id);
   if (user.roles.has(hk_role.id)) user.roles.remove(hk_role.id);
-  if (user.roles.has(disowned_role.id)) user.roles.remove(disowned_role.id);
-  if (user.roles.has(emplify_role.id)) user.roles.remove(emplify_role.id);
   if (user.roles.has(defiant_role.id)) user.roles.remove(defiant_role.id);
   if (user.roles.has(infamy_role.id)) user.roles.remove(infamy_role.id);
   
