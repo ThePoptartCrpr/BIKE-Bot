@@ -76,6 +76,13 @@ exports.run = async (client, message, [user], perms) => {
           message.author,
           client.EmbedHelper.colors.orange
         );
+        member.user.send({
+          embed: client.embed()
+            .setTitle(`Connection Status Update`)
+            .setDescription(`Congratulations! Your Minecraft account connection has been approved by a BIKE staff member. Your guild roles will be automatically synced from here on out.`)
+            .addField(`\u200B\n**Connected account**:`, `${player.displayname}`)
+            .setColor(client.EmbedHelper.colors.lime)
+        });
       } else if (collected.first().content.toLowerCase() === 'c' || collected.first().content.toLowerCase() === 'cancel') {
         message.channel.send({
           embed: new client.Discord.MessageEmbed()
@@ -99,8 +106,15 @@ exports.run = async (client, message, [user], perms) => {
           false,
           member.user,
           message.author,
-          client.EmbedHelper.colors.orange
+          client.EmbedHelper.colors.red
         );
+        member.user.send({
+          embed: client.embed()
+            .setTitle(`Connection Status Update`)
+            .setDescription(`Unfortunately, your account connection has been rejected by a BIKE staff member. This is most likely due to a fraudulent connection or impersonation. Please reconnect your account.`)
+            .addField(`\u200B\n**Account attemped with**:`, `${player.displayname}`)
+            .setColor(client.EmbedHelper.colors.red)
+        });
       }
     })
     .catch(collected => {
