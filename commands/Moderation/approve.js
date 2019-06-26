@@ -79,7 +79,7 @@ exports.run = async (client, message, [user], perms) => {
         member.user.send({
           embed: client.embed()
             .setTitle(`Connection Status Update`)
-            .setDescription(`Congratulations! Your Minecraft account connection has been approved by a BIKE staff member. Your guild roles will be automatically synced from here on out.`)
+            .setDescription(`👌 | Your Minecraft account connection has been approved by a BIKE staff member. Your guild roles will be automatically synced from here on out.`)
             .addField(`\u200B\n**Connected account**:`, `${player.displayname}`)
             .setColor(client.EmbedHelper.colors.lime)
         });
