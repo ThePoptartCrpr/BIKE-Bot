@@ -12,6 +12,8 @@ module.exports = message => {
   if (message.mentions.everyone && message.author.id === "198466968725094400") {
     message.react(client.emojis.find(emoji => emoji.name === "pingsock"));
   }
+  
+  if (message.channel.id === '593256862355292160' && !message.content.startsWith('+connect')) message.delete();
 
   // Mentionable system
   let events_role = message.guild.roles.find(role => role.id === '519755106996977666');
