@@ -25,9 +25,13 @@ exports.run = (client, message, [username], perms) => {
         .setTitle('Invalid username.')
         .setDescription('Please try again.')
         .setColor(client.EmbedHelper.colors.red)
+    }).then(msg => {
+      setTimeout(() => {
+        msg.delete();
+      }, 5000);
     });
     
-    message.channel.send({
+    /*message.channel.send({
       embed: client.embed()
         .setTitle(`Are you sure you want to connect your Discord account to the Minecraft account **${username}**?`)
         .setDescription('(__Y__es / __N__o)')
@@ -64,11 +68,33 @@ exports.run = (client, message, [username], perms) => {
           .setFooter("BIKE Alliance", client.user.avatarURL())
       }));
   });
-};
+};*/
+
+let pending = client.connections.get('pending');
+pending[message.author.id] = { mc: uuid };
+client.connections.set('pending', pending);
+message.author.send({
+  embed: new client.embed()
+    .setTitle(`👌 | Your Minecraft account connection to **${username}** has been confirmed.`)
+    .setDescription('A staff member will approve it shortly.')
+    .setColor(client.EmbedHelper.colors.lime)
+}).then(msg => {
+  setTimeout(() => {
+    msg.delete();
+  }, 5000);
+});
+
+let channel = client.channels.find(channel => channel.id === process.env.STAFF_CHANNEL);
+channel.send({
+  embed: client.embed()
+    .setTitle(`🔔 | ${message.author.username}#${message.author.discriminator} has just requested an account connection to ${username}.`)
+    .setDescription('View pending connections with **+connections**.')
+    .setColor(client.EmbedHelper.colors.gold)
+});
 
 exports.conf = {
   name: 'connect',
-  aliases: ['link', 'link'],
+  aliases: ['link', 'link', 'linkaccount'],
   permLevel: 0,
   usage: '+connect'
 };
