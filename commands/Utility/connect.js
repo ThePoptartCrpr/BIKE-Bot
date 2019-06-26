@@ -77,7 +77,7 @@ exports.run = (client, message, [username], perms) => {
     let pending = client.connections.get('pending');
     pending[message.author.id] = { mc: uuid };
     client.connections.set('pending', pending);
-    message.author.send({
+    message.channel.send({
       embed: new client.embed()
         .setTitle(`👌 | Your Minecraft account connection to **${username}** has been confirmed.`)
         .setDescription('A staff member will approve it shortly.')
