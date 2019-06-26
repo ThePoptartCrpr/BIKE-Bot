@@ -72,30 +72,31 @@ exports.run = (client, message, [username], perms) => {
           .setColor(client.EmbedHelper.colors.red)
           .setTimestamp()
           .setFooter("BIKE Alliance", client.user.avatarURL())
-      }));
-  });*/
+      }));*/
 
-  let pending = client.connections.get('pending');
-  pending[message.author.id] = { mc: uuid };
-  client.connections.set('pending', pending);
-  message.author.send({
-    embed: new client.embed()
-      .setTitle(`👌 | Your Minecraft account connection to **${username}** has been confirmed.`)
-      .setDescription('A staff member will approve it shortly.')
-      .setColor(client.EmbedHelper.colors.lime)
-  }).then(msg => {
-    setTimeout(() => {
-      msg.delete();
-    }, 5000);
-  });
+    let pending = client.connections.get('pending');
+    pending[message.author.id] = { mc: uuid };
+    client.connections.set('pending', pending);
+    message.author.send({
+      embed: new client.embed()
+        .setTitle(`👌 | Your Minecraft account connection to **${username}** has been confirmed.`)
+        .setDescription('A staff member will approve it shortly.')
+        .setColor(client.EmbedHelper.colors.lime)
+    }).then(msg => {
+      setTimeout(() => {
+        msg.delete();
+      }, 5000);
+    });
 
-  let channel = client.channels.find(channel => channel.id === process.env.STAFF_CHANNEL);
-  channel.send({
-    embed: client.embed()
-      .setTitle(`🔔 | ${message.author.username}#${message.author.discriminator} has just requested an account connection to ${username}.`)
-      .setDescription('View pending connections with **+connections**.')
-      .setColor(client.EmbedHelper.colors.gold)
+    let channel = client.channels.find(channel => channel.id === process.env.STAFF_CHANNEL);
+    channel.send({
+      embed: client.embed()
+        .setTitle(`🔔 | ${message.author.username}#${message.author.discriminator} has just requested an account connection to ${username}.`)
+        .setDescription('View pending connections with **+connections**.')
+        .setColor(client.EmbedHelper.colors.gold)
+    });
   });
+  
 };
 
 exports.conf = {
