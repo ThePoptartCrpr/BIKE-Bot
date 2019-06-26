@@ -80,7 +80,7 @@ module.exports = (client => {
     if (!guild) return;
     
     let member = guild.members.find(user => user.id === userId);
-    if (!member) return console.log('User not found: ' + userId);
+    if (!member) return /*console.log('User not found: ' + userId)*/;
     
     let guildId = await client.hypixelapi.findGuild('member', uuid).then(guild => guild.guild);
     let guildName = guildId ? await client.hypixelapi.getGuild(guildId).then(guild => guild.guild.name) : 'none';
@@ -100,7 +100,7 @@ module.exports = (client => {
     if (!member.roles.has(linked_role).id) member.roles.add(linked_role.id);
     
     let toAssign = guild.roles.find(role => role.name === getGuild(guildName)).id;
-    if (member.roles.has(toAssign)) return console.log('Skipping ' + userId + ': roles already assigned properly');
+    if (member.roles.has(toAssign)) return /*console.log('Skipping ' + userId + ': roles already assigned properly')*/;
     
     let hk_role = guild.roles.find(role => role.name === "Hypixel Knights");
     let defiant_role = guild.roles.find(role => role.name === "Defiant");
